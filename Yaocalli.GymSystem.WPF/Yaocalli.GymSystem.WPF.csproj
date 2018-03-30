@@ -74,6 +74,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Contracts\Services\IDialogService.cs" />
+    <Compile Include="Startup\Bootstrapper.cs" />
+    <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -116,7 +120,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Startup\" />
+    <Folder Include="Contracts\ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

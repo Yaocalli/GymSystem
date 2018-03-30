@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{2EDCFFAC-3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yaocalli.GymSystem.WPF.Test", "Yaocalli.GymSystem.WPF.Test\Yaocalli.GymSystem.WPF.Test.csproj", "{92F7DF12-2444-4109-BE5B-94681510E39B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yaocalli.GymSystem.DataAccess", "Yaocalli.GymSystem.DataAccess\Yaocalli.GymSystem.DataAccess.csproj", "{AB47A31A-4A09-4431-B7C5-A4740C3BC6F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{92F7DF12-2444-4109-BE5B-94681510E39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F7DF12-2444-4109-BE5B-94681510E39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F7DF12-2444-4109-BE5B-94681510E39B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB47A31A-4A09-4431-B7C5-A4740C3BC6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB47A31A-4A09-4431-B7C5-A4740C3BC6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB47A31A-4A09-4431-B7C5-A4740C3BC6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB47A31A-4A09-4431-B7C5-A4740C3BC6F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

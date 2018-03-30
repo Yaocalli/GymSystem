@@ -2,6 +2,9 @@
 {
     public class MainViewModel
     {
+        public void Load()
+        {
 
+        }
     }
 }
