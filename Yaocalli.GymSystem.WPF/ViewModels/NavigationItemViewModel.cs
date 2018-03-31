@@ -10,39 +10,10 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
     {
         #region Properties
 
-        //public string Name { get; set; }
-        //public string Image { get; set; }
-        //public MenuAction Action { get; set; }
-        //public string Color { get; set; }
-
-
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
-        }
-
-        private string _image;
-        public string Image
-        {
-            get { return _image; }
-            set { SetProperty(ref _image, value); }
-        }
-
-        private MenuAction _action;
-        public MenuAction Action
-        {
-            get { return _action; }
-            set { SetProperty(ref _action, value); }
-        }
-
-        private string _color;
-        public string Color
-        {
-            get { return _color; }
-            set { SetProperty(ref _color, value); }
-        }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public MenuAction Action { get; set; }
+        public string Color { get; set; }
 
         #endregion
 
@@ -74,3 +45,35 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
 
     }
 }
+
+
+
+
+
+//private string _name;
+//public string Name
+//{
+//    get { return _name; }
+//    set { SetProperty(ref _name, value); }
+//}
+
+//private string _image;
+//public string Image
+//{
+//    get { return _image; }
+//    set { SetProperty(ref _image, value); }
+//}
+
+//private MenuAction _action;
+//public MenuAction Action
+//{
+//    get { return _action; }
+//    set { SetProperty(ref _action, value); }
+//}
+
+//private string _color;
+//public string Color
+//{
+//    get { return _color; }
+//    set { SetProperty(ref _color, value); }
+//}

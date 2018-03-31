@@ -23,7 +23,7 @@ namespace Yaocalli.GymSystem.WPF.Services
         {
             yield return new LookupItem()
             {
-                Name = "Settings",
+                Name = "Configuraciónes",
                 Action = MenuAction.GoToSettings,
                 Image = "/Yaocalli.GymSystem.WPF;component/Resources/Images/Menu/Settings.png",
                 Color = "#FF444444"
@@ -31,7 +31,7 @@ namespace Yaocalli.GymSystem.WPF.Services
 
             yield return new LookupItem()
             {
-                Name = "Exit",
+                Name = "Salir",
                 Action = MenuAction.Exit,
                 Image = "/Yaocalli.GymSystem.WPF;component/Resources/Images/Menu/Close.png",
                 Color = "#FF1585B5"

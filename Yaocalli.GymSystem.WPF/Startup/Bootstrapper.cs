@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Maintenance.Services.Contracts;
+using Maintenance.Services.Repositories;
 using Prism.Events;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
 using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
@@ -11,8 +13,7 @@ namespace Yaocalli.GymSystem.WPF.Startup
     {
         public IContainer BootStrap()
         {
-            var builder = new ContainerBuilder();
-    
+            var builder = new ContainerBuilder();    
             builder.RegisterType<MainViewModel>();
 
             //Events 
@@ -26,6 +27,8 @@ namespace Yaocalli.GymSystem.WPF.Startup
             builder.RegisterType<HomeViewModel>().As<IHomeViewModel>();
             builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
 
+            //DataAccess
+            builder.RegisterType <ProductRepository>().As<IProductRepository>();
 
             return builder.Build();
         }

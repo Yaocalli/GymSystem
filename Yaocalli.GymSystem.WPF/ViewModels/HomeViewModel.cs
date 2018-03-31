@@ -13,7 +13,6 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
 
         public ObservableCollection<NavigationItemViewModel> MenuItems { get; set; }
 
-
         public HomeViewModel(
             ILookupServices lookupServices,
             IEventAggregator eventAggregator)
@@ -28,7 +27,7 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
         public void Load()
         {
             if(MenuItems.Count > 0) return;
-
+            
             var lookup = _lookupServices.GetMenuItems().ToList();
             foreach (var item in lookup)
             {

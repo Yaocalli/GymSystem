@@ -11,35 +11,35 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
     internal class NavigationViewModelTest
     {
         private readonly NavigationViewModel _viewModel;
-        private readonly Mock<ILookupServices> _lookupServices;
+        private readonly Mock<ILookupServices> _lookupServicesMock;
 
 
         public NavigationViewModelTest()
         {
-            var eventAggregator = new Mock<IEventAggregator>();
-            _lookupServices = new Mock<ILookupServices>();
+            var eventAggregatorMock = new Mock<IEventAggregator>();
+            _lookupServicesMock = new Mock<ILookupServices>();
 
             //Events
             var afterNavigationEvent = new AfterNavigationEvent();
 
 
-            eventAggregator.Setup(ea => ea.GetEvent<AfterNavigationEvent>())
+            eventAggregatorMock.Setup(ea => ea.GetEvent<AfterNavigationEvent>())
                 .Returns(afterNavigationEvent);
 
-            _lookupServices.Setup(ls => ls.GetMenuItems())
+            _lookupServicesMock.Setup(ls => ls.GetMenuItems())
                 .Returns(new List<LookupItem>()
                 {
                     new LookupItem() { Name = "Home",  Image = "ImageURl"}
                 });
 
-            _lookupServices.Setup(ls => ls.GetOptions())
+            _lookupServicesMock.Setup(ls => ls.GetOptions())
                 .Returns(new List<LookupItem>()
                 {
                     new LookupItem() { Name = "Settings",  Image = "ImageURl"}
                 });
 
-            _viewModel = new NavigationViewModel(eventAggregator.Object,
-                _lookupServices.Object);
+            _viewModel = new NavigationViewModel(eventAggregatorMock.Object,
+                _lookupServicesMock.Object);
         }
 
         [Test]

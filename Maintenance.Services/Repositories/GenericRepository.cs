@@ -1,58 +1,66 @@
-﻿using System;
+﻿using Maintenance.Domain.Contracts;
+using Maintenance.Services.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Yaocalli.GymSystem.Shared.DataAcces;
 
-namespace Maintenance.Domain.Repositories
+namespace Maintenance.Services.Repositories
 {
-    public class GenericRepository<TEntity> where TEntity : class, IEntity
-    {
-        internal DbContext _context;
-        internal DbSet<TEntity> _dbSet;
+    public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity>
+        where TEntity : class, IEntity
+        where TContext : DbContext
 
-        public GenericRepository(DbContext context)
+    {
+
+        protected readonly TContext Context;
+
+        protected GenericRepository(TContext context)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            this.Context = context;
         }
 
         public async Task<IEnumerable<TEntity>> AllAsync()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
+            return await Context.Set<TEntity>().AsNoTracking().Where(predicate).ToListAsync();
         }
 
-
-        public async Task<TEntity> FindBykey(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            return await _dbSet.SingleOrDefaultAsync(e => e.Id == id);
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<TEntity> GetByIdOrDefaultAsync(int id)
+        {
+            return await Context.Set<TEntity>().AsNoTracking()
+                .SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public void Insert(TEntity entity)
         {
-            _dbSet.Add(entity);
+            Context.Set<TEntity>().Add(entity);
         }
 
         public void Update(TEntity entity)
         {
-            _dbSet.Attach(entity);
+            Context.Set<TEntity>().Attach(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            _dbSet.Remove(entity);
+            Context.Set<TEntity>().Remove(entity);
         }
 
-        public async void SaveAsync(TEntity entity)
+        public async Task SaveAsync(TEntity entity)
         {
-           await _dbSet.SingleAsync();
+            await Context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> AllIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
@@ -69,8 +77,10 @@ namespace Maintenance.Domain.Repositories
         private IQueryable<TEntity> GetAllIncluding
             (params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
+            IQueryable<TEntity> queryable = Context.Set<TEntity>().AsNoTracking();
             return includeProperties.Aggregate(queryable, (current, includeProperty) => current.Include(includeProperty));
         }
     }
 }
+
+

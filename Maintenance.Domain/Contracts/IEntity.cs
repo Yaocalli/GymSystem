@@ -1,4 +1,4 @@
-﻿namespace Yaocalli.GymSystem.Shared.DataAcces
+﻿namespace Maintenance.Domain.Contracts
 {
     public interface IEntity
     {
