@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Prism.Events;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
+using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
 using Yaocalli.GymSystem.WPF.Services;
 using Yaocalli.GymSystem.WPF.ViewModels;
 
@@ -15,10 +16,16 @@ namespace Yaocalli.GymSystem.WPF.Startup
             builder.RegisterType<MainViewModel>();
 
             //Events 
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance(); 
 
             //Services
             builder.RegisterType<DialogService>().As<IDialogService>();
+            builder.RegisterType<LookupService>().As<ILookupServices>();
+
+            //ViewModels
+            builder.RegisterType<HomeViewModel>().As<IHomeViewModel>();
+            builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
+
 
             return builder.Build();
         }

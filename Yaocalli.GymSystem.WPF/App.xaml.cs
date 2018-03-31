@@ -22,9 +22,12 @@ namespace Yaocalli.GymSystem.WPF
             var mainWindow = new MainWindow();
             _mainViewModel = container.Resolve<MainViewModel>();
 
-            mainWindow.Loaded += MainWindowOnLoaded;
+            _mainViewModel.ClosingRequest += (sender, args) => mainWindow.Close();
             mainWindow.DataContext = _mainViewModel;
+            mainWindow.Loaded += MainWindowOnLoaded;
+
             mainWindow.Show();
+
         }
 
         private void MainWindowOnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -32,7 +35,7 @@ namespace Yaocalli.GymSystem.WPF
             _mainViewModel.Load();
         }
 
-        private void App_OnDispatcherUnhandledException_(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
 
@@ -41,9 +44,5 @@ namespace Yaocalli.GymSystem.WPF
                             "Message: " + e.Exception.Message);
         }
 
-        private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-
-        }
     }
 }

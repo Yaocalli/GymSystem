@@ -3,9 +3,88 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="TitleTemplate">
+
+            <mah:Tile Title="{Binding Name}"
+                           Background="{Binding Color}"
+                           HorizontalAlignment="Right"
+                           mah:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                           Command="{Binding NavCommand}"           
+                           Style="{StaticResource LargeTileStyle}">
+
+                <Image VerticalAlignment="Center"
+                       Stretch="Uniform"
+                       Source="{Binding Image}"/>
+            </mah:Tile>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
     <Grid>
-            
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               FontSize="35"
+                               Margin="60 15 15 15"
+                               FontWeight="Light"
+                               Foreground="{DynamicResource BlackBrush}"
+                               Text="Gym System" />
+
+
+                    <TextBlock Grid.Column="2"
+                               Margin="10"
+                               FontFamily="Segoe UI"
+                               VerticalAlignment="Center"
+                               FontSize="19"
+                               HorizontalAlignment="Right"
+                               FontWeight="Light"
+                               Foreground="{DynamicResource BlackBrush}"
+                               Text="{Binding FullName, Mode=TwoWay}" />
+                </Grid>
+
+                <WrapPanel Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Left"
+                           Width="920"
+                           Margin="10"
+                           Orientation="Horizontal"
+                           VerticalAlignment="Top">
+
+                    <ItemsControl ItemsSource="{Binding MenuItems}"     
+                                  ItemTemplate="{StaticResource TitleTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                </WrapPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

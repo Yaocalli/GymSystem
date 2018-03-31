@@ -43,8 +43,8 @@
     <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.1\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Prism, Version=7.0.0.396, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll</HintPath>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,6 +74,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\Services\ILookupServices.cs" />
+    <Compile Include="Contracts\ViewModels\INavigationViewModel.cs" />
+    <Compile Include="Events\AfterNavigationEvent.cs" />
+    <Compile Include="Events\BeforeNavigationEvent.cs" />
+    <Compile Include="Services\LookupItem.cs" />
+    <Compile Include="Services\LookupService.cs" />
+    <Compile Include="Contracts\ViewModels\IHomeViewModel.cs" />
     <Compile Include="Contracts\ViewModels\IViewModelBase.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Contracts\Services\IDialogService.cs" />
@@ -82,6 +89,7 @@
     <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NavigationItemViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -101,6 +109,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Style\GymSystemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\HomeStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,10 +153,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Resources\Images\" />
-    <Folder Include="Style\" />
+    <Resource Include="Resources\Images\Menu\Admin.png" />
+    <Resource Include="Resources\Images\Menu\Close.png" />
+    <Resource Include="Resources\Images\Menu\Home.png" />
+    <Resource Include="Resources\Images\Menu\Settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

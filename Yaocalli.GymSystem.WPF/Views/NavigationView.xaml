@@ -4,9 +4,70 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yaocalli.GymSystem.WPF.Views"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuGlyphItem  }">
+            <Grid Height="48" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Image  Grid.Column="0"
+                        Margin="2"                      
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Stretch="Uniform"
+                        Source="{Binding Image}"/>
+
+                <TextBlock  Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
     <Grid>
-            
+        <controls:HamburgerMenu 
+            x:Name="HamburgerMenuControl"
+            Grid.Row="0"  
+            Grid.Column="0"
+            DisplayMode="Overlay"
+            Foreground="White"
+            ItemsSource="{Binding MenuItems}"
+            OptionsItemsSource="{Binding Options}"
+            PaneBackground="#FF444444"
+            IsPaneOpen="{Binding IsHambugerMenuOpen, Mode=TwoWay}"
+            ItemCommand="{Binding NavCommand}"
+            OptionsItemCommand="{Binding NavCommand}"
+            SelectedItem="{Binding SelectedLocation}"
+            SelectedOptionsItem="{Binding SelectedLocation}"
+            ItemTemplate="{StaticResource MenuItemTemplate}" 
+            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+            HamburgerVisibility="{Binding MenuVisibility, Mode=TwoWay}"
+            VerticalScrollBarOnLeftSide="False">
+
+            <controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"
+                               Text="Menu" />
+                </DataTemplate>
+            </controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
+
+            <controls:HamburgerMenu.Content>
+                <ContentControl Grid.Row="1"  Content="{Binding CurrentViewModel}" />
+            </controls:HamburgerMenu.Content>
+
+        </controls:HamburgerMenu>
+
     </Grid>
 </UserControl>

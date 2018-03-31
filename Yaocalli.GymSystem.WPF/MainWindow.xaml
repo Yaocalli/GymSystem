@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Yaocalli.GymSystem.WPF"
+        xmlns:views="clr-namespace:Yaocalli.GymSystem.WPF.Views"
+        xmlns:viewModel="clr-namespace:Yaocalli.GymSystem.WPF.ViewModels"
         mc:Ignorable="d"
         TitleCaps="False"
         WindowStartupLocation="CenterScreen"
@@ -16,7 +18,23 @@
         ShowCloseButton="true"
         Focusable="True"
         Width="1170">
-    <Grid>
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <views:HomeView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <views:NavigationView Grid.Row="0" Grid.Column="0" DataContext="{Binding NavigationViewModel}"/>
+
+        <StatusBar Grid.Row="1" Grid.Column="0">
+            <StatusBarItem Content="Yaocalli" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StatusBar>
     </Grid>
 </controls:MetroWindow>
