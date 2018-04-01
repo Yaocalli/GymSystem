@@ -51,10 +51,17 @@ namespace Maintenance.Services.Repositories
         public void Update(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(TEntity entity)
         {
+            Context.Set<TEntity>().Remove(entity);
+        }
+
+        public async void DeleteById(int id)
+        {
+            var entity = await GetByIdAsync(id);
             Context.Set<TEntity>().Remove(entity);
         }
 

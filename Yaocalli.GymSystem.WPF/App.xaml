@@ -14,7 +14,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
 
-                
+                <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
+
+
                 <!--Application Style-->
                 <ResourceDictionary Source="/Style/GymSystemStyle.xaml"/>
                 <ResourceDictionary Source="/Style/HomeStyle.xaml"/>

@@ -1,6 +1,6 @@
 ﻿using Yaocalli.GymSystem.WPF.Utilities;
 
-namespace Yaocalli.GymSystem.WPF.Contracts.Services
+namespace Yaocalli.GymSystem.WPF.Services
 {
     public class LookupItem
     {

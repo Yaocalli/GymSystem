@@ -3,18 +3,17 @@ using System;
 
 namespace Maintenance.Domain
 {
-    public class User : IEntity
+    public class Member : IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
         public byte[] ProfilePicture { get; set; }
-        public string Address { get; set; }
         public bool Active { get; set; }
-        public DateTime Birthday { get; set; }
         public char Gender { get; set; }
-        public string Email { get; set; }
-        public string Telephone { get; set; }
-        public string Cellphone { get; set; }
+        public DateTime Birthday { get; set; }
+        public ContactDetail ContactDetail { get; set; }
+        public Address Address { get; set; }
     }
 }

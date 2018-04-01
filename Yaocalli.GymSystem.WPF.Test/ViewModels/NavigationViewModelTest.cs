@@ -4,6 +4,7 @@ using Prism.Events;
 using System.Collections.Generic;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
 using Yaocalli.GymSystem.WPF.Events;
+using Yaocalli.GymSystem.WPF.Services;
 using Yaocalli.GymSystem.WPF.ViewModels;
 
 namespace Yaocalli.GymSystem.WPF.Test.ViewModels

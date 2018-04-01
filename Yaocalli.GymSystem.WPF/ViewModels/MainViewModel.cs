@@ -14,6 +14,7 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
         #region Properties
 
         public IHomeViewModel HomeViewModel { get; set; }
+        public IMembersViewModel MembersViewModel { get; set; }
         public INavigationViewModel NavigationViewModel { get; set; }
 
 
@@ -24,21 +25,28 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
         private IViewModelBase _currenViewModel;
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ILanguageService _languageService;
 
         public MainViewModel(
             IDialogService dialogService,
             IHomeViewModel homeViewModel,
+            IMembersViewModel membersViewModel,
             INavigationViewModel navigationViewModel,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            ILanguageService languageService)
         {
             HomeViewModel = homeViewModel;
             NavigationViewModel = navigationViewModel;
+            MembersViewModel = membersViewModel;
 
             _dialogService = dialogService;
             _eventAggregator = eventAggregator;
+            _languageService = languageService;
 
             _eventAggregator.GetEvent<BeforeNavigationEvent>()
                 .Subscribe(OnBeforeNavigation);
+
+            _languageService.Start();
         }
 
         public void Load()
@@ -59,6 +67,10 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
                 case MenuAction.GoToHome:
                     _currenViewModel = HomeViewModel;
                     break;
+                case MenuAction.GoToMembers:
+                    _currenViewModel = MembersViewModel;
+                    MembersViewModel.Load();
+                    break;
                 case MenuAction.Exit:
                     Close();
                     break;
@@ -75,8 +87,8 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
 
         private async void Close()
         {
-            var result = await _dialogService.AskQuestionAsync("Cerrar Aplicación",
-                "¿Estás que desear cerrar la aplicación?");
+            var result = await _dialogService.AskQuestionAsync(_languageService.GetValue("ExitApplication"),
+                _languageService.GetValue("AreYouSureYouWantToExitTheApplication"));
 
             if (result == MessageDialogResult.Affirmative)
             {

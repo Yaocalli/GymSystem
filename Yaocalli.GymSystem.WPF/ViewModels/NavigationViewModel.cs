@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
 using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
 using Yaocalli.GymSystem.WPF.Events;
+using Yaocalli.GymSystem.WPF.Services;
 using Yaocalli.GymSystem.WPF.Utilities;
 
 namespace Yaocalli.GymSystem.WPF.ViewModels

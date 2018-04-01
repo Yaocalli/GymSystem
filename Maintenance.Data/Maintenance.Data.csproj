@@ -48,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MaintenanceContext.cs" />
+    <Compile Include="Migrations\201804010148345_Initial.cs" />
+    <Compile Include="Migrations\201804010148345_Initial.Designer.cs">
+      <DependentUpon>201804010148345_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +64,11 @@
       <Project>{82cfa34c-6d8d-4bc8-aca2-4311874e70b8}</Project>
       <Name>Maintenance.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804010148345_Initial.resx">
+      <DependentUpon>201804010148345_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

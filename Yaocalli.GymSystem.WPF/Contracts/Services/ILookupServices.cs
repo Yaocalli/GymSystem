@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yaocalli.GymSystem.WPF.Services;
 
 namespace Yaocalli.GymSystem.WPF.Contracts.Services
 {

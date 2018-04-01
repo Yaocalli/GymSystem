@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Account">Cuenta</system:String>
+    <system:String x:Key="PassWord">Constraseña</system:String>
+    <system:String x:Key="Cancel">Cancelar</system:String>
+    <system:String x:Key="Login">Entrar</system:String>
+    <system:String x:Key="ExitApplication">Cerrar Aplicación</system:String>
+    <system:String x:Key="AreYouSureYouWantToExitTheApplication">¿Estás seguro que quieres salir de la aplicación?</system:String>
+    <system:String x:Key="NoInternetAccess">Sin Acceso a la Red</system:String>
+    <system:String x:Key="InternetAccess">"Acceso a la red"</system:String>
+    <system:String x:Key="Ok">Aceptar</system:String>
+    <system:String x:Key="WorkingOnIt">Espere un momento por favor…</system:String>
+    <system:String x:Key="Home">Inicio</system:String>
+    <system:String x:Key="Settings">Configuraciones</system:String>
+    <system:String x:Key="Information">Información</system:String>
+    <system:String x:Key="Exit">Salir</system:String>
+    <system:String x:Key="MissingInformation">Falta Información</system:String>
+    <system:String x:Key="YouhaveNotSuppliedValuesForAllTheRequiredFields">Es necesario introducir usuario de BPCS y Contraseña</system:String>
+    <system:String x:Key="UserInformation">Información del usuario</system:String>
+    <system:String x:Key="Name">Nombre</system:String>
+    <system:String x:Key="LastName">Apellido</system:String>
+    <system:String x:Key="Members">Socios</system:String>
+
+</ResourceDictionary>

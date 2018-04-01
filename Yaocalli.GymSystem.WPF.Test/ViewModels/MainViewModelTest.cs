@@ -13,10 +13,12 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
         private readonly MainViewModel _viewmodel;
         private Mock<INavigationViewModel> _navigationViewModelMock;
         private Mock<IHomeViewModel> _homeViewModelMock;
+        private Mock<IMembersViewModel> _membersViewModeMock;
         private Mock<IEventAggregator> _eventAggregatorMock;
         private Mock<IDialogService> _dialogServiceMock;
         private BeforeNavigationEvent _beforeNavigationEvent;
         private AfterNavigationEvent _afterNavigationEvent;
+        private Mock<ILanguageService> _languageService;
 
         public MainViewModelTest()
         {
@@ -25,6 +27,8 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
             _homeViewModelMock = new Mock<IHomeViewModel>();
             _navigationViewModelMock = new Mock<INavigationViewModel>();
             _eventAggregatorMock = new Mock<IEventAggregator>();
+            _membersViewModeMock = new Mock<IMembersViewModel>();
+            _languageService = new Mock<ILanguageService>();
 
             //Events
             _beforeNavigationEvent = new BeforeNavigationEvent();
@@ -42,8 +46,10 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
             _viewmodel = new MainViewModel(
                 _dialogServiceMock.Object,
                 _homeViewModelMock.Object,
+                _membersViewModeMock.Object,
                 _navigationViewModelMock.Object,
-                _eventAggregatorMock.Object);
+                _eventAggregatorMock.Object,
+                _languageService.Object);
         }
 
 
@@ -52,8 +58,8 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
         {
             _viewmodel.Load();
 
-            _navigationViewModelMock.Verify(vm=> vm.Load(), Times.Once);
-            _homeViewModelMock.Verify(vm=> vm.Load(), Times.Once);
+            _navigationViewModelMock.Verify(vm => vm.Load(), Times.Once);
+            _homeViewModelMock.Verify(vm => vm.Load(), Times.Once);
         }
     }
 }

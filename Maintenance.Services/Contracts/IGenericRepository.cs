@@ -10,6 +10,7 @@ namespace Maintenance.Services.Contracts
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        void DeleteById(int id);
         Task SaveAsync(TEntity entity);
         Task<IEnumerable<TEntity>> AllAsync();
         Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate);

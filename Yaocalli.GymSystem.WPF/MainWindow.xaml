@@ -23,6 +23,10 @@
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:MembersViewModel}">
+            <views:MembersView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
