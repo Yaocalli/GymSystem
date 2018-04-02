@@ -8,11 +8,19 @@ using Yaocalli.GymSystem.WPF.Utilities;
 
 namespace Yaocalli.GymSystem.WPF.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
 
         #region Properties
 
+        private bool _isSettingsFlyoutOpen;
+        public bool IsSettingsFlyoutOpen
+        {
+            get { return _isSettingsFlyoutOpen; }
+            set { SetProperty(ref _isSettingsFlyoutOpen, value); }
+        }
+
+        public ISettingsViewModel SettingsViewModel { get; set; }
         public IHomeViewModel HomeViewModel { get; set; }
         public IMembersViewModel MembersViewModel { get; set; }
         public INavigationViewModel NavigationViewModel { get; set; }
@@ -33,11 +41,13 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
             IMembersViewModel membersViewModel,
             INavigationViewModel navigationViewModel,
             IEventAggregator eventAggregator,
-            ILanguageService languageService)
+            ILanguageService languageService,
+            ISettingsViewModel settingsViewModel)
         {
             HomeViewModel = homeViewModel;
             NavigationViewModel = navigationViewModel;
             MembersViewModel = membersViewModel;
+            SettingsViewModel = settingsViewModel;
 
             _dialogService = dialogService;
             _eventAggregator = eventAggregator;
@@ -69,7 +79,10 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
                     break;
                 case MenuAction.GoToMembers:
                     _currenViewModel = MembersViewModel;
-                    MembersViewModel.Load();
+                    MembersViewModel.LoadAsync();
+                    break;
+                case MenuAction.GoToSettings:
+                    OnSettings(true);
                     break;
                 case MenuAction.Exit:
                     Close();
@@ -85,6 +98,11 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
                 });
         }
 
+        private void OnSettings(bool isOpen = false)
+        {
+            IsSettingsFlyoutOpen = isOpen;
+        }
+
         private async void Close()
         {
             var result = await _dialogService.AskQuestionAsync(_languageService.GetValue("ExitApplication"),
@@ -98,3 +116,10 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
 
     }
 }
+
+
+//Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+//config.AppSettings.Settings["Language"].Value = "Spanish";
+//config.Save(ConfigurationSaveMode.Modified);
+//ConfigurationManager.RefreshSection("appSettings");
+//_languageService.Start();

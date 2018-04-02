@@ -20,6 +20,9 @@
                 <!--Application Style-->
                 <ResourceDictionary Source="/Style/GymSystemStyle.xaml"/>
                 <ResourceDictionary Source="/Style/HomeStyle.xaml"/>
+                
+                <!--Language-->
+                <ResourceDictionary Source="Resources/Languages/English.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

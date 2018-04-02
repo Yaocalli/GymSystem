@@ -4,30 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yaocalli.GymSystem.WPF.Views"
+             xmlns:viewModels="clr-namespace:Yaocalli.GymSystem.WPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <UserControl.Resources>
-        <DataTemplate x:Key="MemberTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding FirstName}"/>
-            </StackPanel>
-        </DataTemplate>
-    </UserControl.Resources>
-
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Socios" Style="{DynamicResource Title}"/>
+        <TextBlock Text="{DynamicResource Members}" Style="{DynamicResource Title}"/>
 
         <Border Grid.Row="1" Style="{DynamicResource MenuBorder}">
             <DockPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="55" Height="55"
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50"
+                            Command="{Binding NewMemberCommand}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, 
+                            RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_add}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <TextBlock Text="{DynamicResource NewMember}" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50"
                             Command="{Binding LoadCommand}">
                         <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, 
                             RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
@@ -36,7 +43,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <TextBlock Text="Actulizar" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Refresh}" HorizontalAlignment="Center"/>
                 </StackPanel>
             </DockPanel>
         </Border>
@@ -46,14 +53,26 @@
 
             <DataGrid AutoGenerateColumns="False" 
                       IsSelected="False"
+                      FontSize="12"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      HorizontalContentAlignment="Center"
+                      MinHeight="600"
+                      RowHeight="50"
+                      VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding MemberList}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding FirstName}" Header="FirstName" />
-                    <DataGridTextColumn Binding="{Binding LastName}" Header="LastName" />
+                    <DataGridTextColumn Binding="{Binding FirstName}" Header="{DynamicResource FirstName}" />
+                    <DataGridTextColumn Binding="{Binding LastName}" Header="{DynamicResource LastName}" />
                 </DataGrid.Columns>
             </DataGrid>
 
         </Border>
+
+        
+        <!--Modals-->
+        <local:DetailMemberView Grid.Row="0" Grid.RowSpan="3" DataContext="{Binding DetailMemberViewModel}"/>
 
     </Grid>
 </UserControl>

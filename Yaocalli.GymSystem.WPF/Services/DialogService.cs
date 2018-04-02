@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Threading.Tasks;
-using System.Windows;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
+using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
 
 namespace Yaocalli.GymSystem.WPF.Services
 {
@@ -11,10 +11,12 @@ namespace Yaocalli.GymSystem.WPF.Services
         private readonly MetroWindow _window;
         private readonly ILanguageService _languageService;
 
-        public DialogService(ILanguageService languageService)
+
+        public DialogService(ILanguageService languageService,
+            IWindowFactory windowFactory)
         {
             _languageService = languageService;
-            _window = ((MetroWindow)Application.Current.MainWindow);
+            _window = ((MetroWindow)windowFactory.GetMainWindow());
         }
 
         public Task<MessageDialogResult> AskQuestionAsync(string title, string message)

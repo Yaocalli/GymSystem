@@ -19,8 +19,12 @@
     <system:String x:Key="MissingInformation">Falta Información</system:String>
     <system:String x:Key="YouhaveNotSuppliedValuesForAllTheRequiredFields">Es necesario introducir usuario de BPCS y Contraseña</system:String>
     <system:String x:Key="UserInformation">Información del usuario</system:String>
-    <system:String x:Key="Name">Nombre</system:String>
+    <system:String x:Key="FirstName">Nombre</system:String>
     <system:String x:Key="LastName">Apellido</system:String>
     <system:String x:Key="Members">Socios</system:String>
+    <system:String x:Key="NewMember">Nuevo Socio</system:String>
+    <system:String x:Key="Refresh">actualizar</system:String>
+    <system:String x:Key="Member">Socio</system:String>
+
 
 </ResourceDictionary>

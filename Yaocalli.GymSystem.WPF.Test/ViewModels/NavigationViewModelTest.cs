@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Prism.Events;
 using System.Collections.Generic;
+using System.Windows;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
 using Yaocalli.GymSystem.WPF.Events;
 using Yaocalli.GymSystem.WPF.Services;
@@ -13,7 +14,8 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
     {
         private readonly NavigationViewModel _viewModel;
         private readonly Mock<ILookupServices> _lookupServicesMock;
-
+        private BeforeNavigationEvent _beforeNavigationEvent;
+        private AfterNavigationEvent _afterNavigationEvent;
 
         public NavigationViewModelTest()
         {
@@ -21,11 +23,14 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
             _lookupServicesMock = new Mock<ILookupServices>();
 
             //Events
-            var afterNavigationEvent = new AfterNavigationEvent();
-
+            _afterNavigationEvent = new AfterNavigationEvent();
+            _beforeNavigationEvent = new BeforeNavigationEvent();
 
             eventAggregatorMock.Setup(ea => ea.GetEvent<AfterNavigationEvent>())
-                .Returns(afterNavigationEvent);
+                .Returns(_afterNavigationEvent);
+
+            eventAggregatorMock.Setup(ea => ea.GetEvent<BeforeNavigationEvent>())
+                .Returns(_beforeNavigationEvent);
 
             _lookupServicesMock.Setup(ls => ls.GetMenuItems())
                 .Returns(new List<LookupItem>()
@@ -60,6 +65,34 @@ namespace Yaocalli.GymSystem.WPF.Test.ViewModels
 
             Assert.AreEqual(1, _viewModel.MenuItems.Count);
             Assert.AreEqual(1, _viewModel.Options.Count);
+        }
+
+        [Test]
+        public void ShouldCloseTheMenuWhenTheNavigationEventIsCalled()
+        {
+            _viewModel.IsHambugerMenuOpen = true;
+
+            var args = new AfterNavigationEventArgs()
+            {
+                IsHamburgerMenuOpen = false,
+            };
+
+            _afterNavigationEvent.Publish(args);
+
+            Assert.IsFalse(_viewModel.IsHambugerMenuOpen);
+        }
+
+        [Test]
+        public void ShouldHideMenuWhenTheNavigationEventIsCalled()
+        {
+            var args = new AfterNavigationEventArgs()
+            {
+                IsMenuVisible = false
+            };
+
+            _afterNavigationEvent.Publish(args);
+
+            Assert.AreEqual(Visibility.Collapsed, _viewModel.MenuVisibility);
         }
     }
 }

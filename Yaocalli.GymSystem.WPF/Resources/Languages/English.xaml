@@ -19,8 +19,12 @@
     <system:String x:Key="MissingInformation">Missing Information</system:String>
     <system:String x:Key="YouhaveNotSuppliedValuesForAllTheRequiredFields">You have not supplied values for all the required fields</system:String>
     <system:String x:Key="UserInformation">User Information</system:String>
-    <system:String x:Key="Name">Name</system:String>
+    <system:String x:Key="FirstName">FirstName</system:String>
     <system:String x:Key="LastName">LastName</system:String>
     <system:String x:Key="Members">Members</system:String>
+    <system:String x:Key="Refresh">Update</system:String>
+    <system:String x:Key="NewMember">New member</system:String>
+    <system:String x:Key="Member">Member</system:String>
+
 
 </ResourceDictionary>

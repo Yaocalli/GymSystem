@@ -29,6 +29,19 @@
         </DataTemplate>
     </Window.Resources>
 
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Position="Right" 
+                             Width="400"
+                             Header="{DynamicResource Settings}"
+                             AreAnimationsEnabled="True"
+                             IsModal="True"
+                             IsOpen="{Binding IsSettingsFlyoutOpen}">
+                <views:SettingsView DataContext="{Binding SettingsViewModel}"/>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

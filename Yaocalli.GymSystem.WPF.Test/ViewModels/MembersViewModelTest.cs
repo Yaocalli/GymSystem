@@ -1,40 +1,83 @@
-﻿using Maintenance.Data;
-using Maintenance.Domain;
-using Maintenance.Services.Repositories;
+﻿using Maintenance.Domain;
+using Maintenance.Services.Contracts;
 using Moq;
 using NUnit.Framework;
 using Prism.Events;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
-using Yaocalli.GymSystem.WPF.Test.Helper;
+using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
 using Yaocalli.GymSystem.WPF.ViewModels;
+
 
 namespace Yaocalli.GymSystem.WPF.Test.ViewModels
 {
     [TestFixture]
     internal class MembersViewModelTest
     {
-        private MembersViewModel _viewModel;
-        private Mock<IEventAggregator> _eventAggregatorMock;
-        private Mock<IDialogService> _dialogServiceMock;
-        private MemberRepository _memberRepository;
+        private readonly MembersViewModel _viewModel;
+        private readonly Mock<IEventAggregator> _eventAggregatorMock;
+        private readonly Mock<IDialogService> _dialogServiceMock;
+        private readonly Mock<IMemberRepository> _memberRepository;
+        private Mock<IDetailMemberViewModel> _detailMemberViewModelMock;
 
         public MembersViewModelTest()
         {
 
-            var scContext = new MaintenanceContext { Members = TestHelper.MockDbSet<Member>() };
-            _memberRepository = new MemberRepository(scContext);
+            _memberRepository = new Mock<IMemberRepository>();
+            _dialogServiceMock = new Mock<IDialogService>();
+            _eventAggregatorMock = new Mock<IEventAggregator>();
+            _detailMemberViewModelMock = new Mock<IDetailMemberViewModel>();
+
+
+
+            _memberRepository.Setup(x => x.AllAsync()).ReturnsAsync(new List<Member>()
+            {
+                new Member(){ FirstName = "User_1"},
+                new Member(){FirstName = "User 2"}
+            });
+
+            _detailMemberViewModelMock.Setup(dm => dm.IsModalOpen)
+                .Returns(false);
 
             _viewModel = new MembersViewModel(
                 _dialogServiceMock.Object,
-                _memberRepository,
-                _eventAggregatorMock.Object);
+                _memberRepository.Object,
+                _eventAggregatorMock.Object,
+                _detailMemberViewModelMock.Object);
         }
-        [Test]
-        public async void ShouldLoadMembers()
-        {
 
-            var result = await _memberRepository.AllAsync();
-            Assert.AreEqual(1, _viewModel.MemberList.Count);
+        [Test]
+        public async Task ShouldLoadMembers()
+        {
+            await _viewModel.LoadAsync();
+            Assert.AreEqual(2, _viewModel.MemberList.Count);
         }
+
+        [Test]
+        public async Task ShouldLoadMembersOnlyOnce()
+        {
+            await _viewModel.LoadAsync();
+            await _viewModel.LoadAsync();
+            Assert.AreEqual(2, _viewModel.MemberList.Count);
+        }
+
+        [Test]
+        public async Task ShouldCallLoadMethodWhenLoadCommandIsExecuted()
+        {
+            _viewModel.LoadCommand.Execute(null);
+            await Task.Delay(100); // await for asynchronous Method
+            Assert.AreEqual(2, _viewModel.MemberList.Count);
+        }
+
+        [Test]
+        public void ShouldOpenDetailMemberViewWhenNewMemberCommandIsExecuted()
+        {
+            _viewModel.NewMemberCommand.Execute(null);
+            _detailMemberViewModelMock.Verify(dm => dm.Open());
+        }
+
     }
 }
+
+

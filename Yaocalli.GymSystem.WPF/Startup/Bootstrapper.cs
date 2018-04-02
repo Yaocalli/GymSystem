@@ -14,29 +14,33 @@ namespace Yaocalli.GymSystem.WPF.Startup
     {
         public IContainer BootStrap()
         {
-            var builder = new ContainerBuilder();    
-            builder.RegisterType<MainViewModel>().AsSelf();
+            var builder = new ContainerBuilder();
 
+            builder.RegisterType<MainViewModel>().AsSelf();
             builder.RegisterType<MaintenanceContext>().AsSelf();
 
+
             //Events 
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>()
-                .SingleInstance(); 
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             //Services
-            builder.RegisterType<DialogService>().As<IDialogService>();
             builder.RegisterType<LookupService>().As<ILookupServices>();
-            builder.RegisterType<LanguageService>().As<ILanguageService>()
-                .SingleInstance();
+            builder.RegisterType<DialogService>().As<IDialogService>();
+            builder.RegisterType<WindowFactory>().As<IWindowFactory>().SingleInstance();
+            builder.RegisterType<LanguageService>().As<ILanguageService>().SingleInstance();
 
             //ViewModels
             builder.RegisterType<HomeViewModel>().As<IHomeViewModel>();
             builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
             builder.RegisterType<MembersViewModel>().As<IMembersViewModel>();
-        
+            builder.RegisterType<DetailMemberViewModel>().As<IDetailMemberViewModel>();
+            builder.RegisterType<SettingsViewModel>().As<ISettingsViewModel>();
+
             //DataAccess
-            builder.RegisterType <ProductRepository>().As<IProductRepository>();
-            builder.RegisterType <MemberRepository>().As<IMemberRepository>();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            builder.RegisterType<MemberRepository>().As<IMemberRepository>();
+
+
 
             return builder.Build();
         }

@@ -1,5 +1,4 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
-using Maintenance.Domain;
 using Maintenance.Services.Contracts;
 using Prism.Commands;
 using Prism.Events;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Yaocalli.GymSystem.WPF.Contracts.Services;
 using Yaocalli.GymSystem.WPF.Contracts.ViewModels;
+using Yaocalli.GymSystem.WPF.Wrappers;
 
 namespace Yaocalli.GymSystem.WPF.ViewModels
 {
@@ -17,13 +17,16 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
 
         #region Properties
 
-        public ObservableCollection<Member> MemberList { get; set; }
+        public ObservableCollection<MemberWrapper> MemberList { get; set; }
+        public IDetailMemberViewModel DetailMemberViewModel { get; set; }
 
         #endregion
 
         #region Command
 
         public ICommand LoadCommand { get; set; }
+
+        public ICommand NewMemberCommand { get; set; }
 
         #endregion
 
@@ -36,36 +39,39 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
         public MembersViewModel(
             IDialogService dialogService,
             IMemberRepository memberRepository,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            IDetailMemberViewModel detailMemberViewModel)
         {
             _memberRepository = memberRepository;
             _dialogService = dialogService;
             _eventAggregator = eventAggregator;
 
+            DetailMemberViewModel = detailMemberViewModel;
 
-            LoadCommand = new DelegateCommand(Load);
-            MemberList = new ObservableCollection<Member>();
+            NewMemberCommand = new DelegateCommand(OnNewMemberExecute);
+            LoadCommand = new DelegateCommand(async () => await LoadAsync());
+
+            MemberList = new ObservableCollection<MemberWrapper>();
             _controller = null;
         }
 
-        public async void Load()
+
+
+        public async Task LoadAsync()
         {
             try
             {
-                _controller = await _dialogService.ShowProgressAsync("Un momento por favor");
-                _controller.SetIndeterminate();
+                _controller = await _dialogService.ShowProgressAsync("");
+                _controller?.SetIndeterminate();
 
                 MemberList.Clear();
                 var members = await Task.Run(async () => await _memberRepository.AllAsync());
-                if (members != null)
-                {
-                    foreach (var member in members)
-                    {
-                        MemberList.Add(member);
-                    }
-                }
+                if (members == null) return;
 
-                await _controller.CloseAsync();
+                foreach (var member in members)
+                {
+                    MemberList.Add(new MemberWrapper(member));
+                }
             }
             catch (Exception ex)
             {
@@ -82,7 +88,11 @@ namespace Yaocalli.GymSystem.WPF.ViewModels
             }
         }
 
+        private void OnNewMemberExecute()
+        {
 
+            DetailMemberViewModel.Open();
+        }
 
     }
 }

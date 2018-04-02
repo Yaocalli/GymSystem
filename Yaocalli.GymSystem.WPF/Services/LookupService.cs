@@ -11,6 +11,7 @@ namespace Yaocalli.GymSystem.WPF.Services
         {
             _languageService = languageService;
         }
+
         public IEnumerable<LookupItem> GetMenuItems()
         {
             yield return new LookupItem()
